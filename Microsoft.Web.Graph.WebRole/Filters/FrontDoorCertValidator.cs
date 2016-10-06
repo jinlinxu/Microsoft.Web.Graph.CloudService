@@ -22,23 +22,23 @@
         public static bool Validate(HttpClientCertificate cert)
         {
             //****** DISABLED UNTIL OSI WORKS
-            //if (frontDoorCert == null)
-            //{
-            //    string frontDoorCertSubject = ConfigurationManager.AppSettings["FrontDoorClientCert"];
-            //    frontDoorCert = GetCertificateBySubjectName(frontDoorCertSubject);
-            //}
+            if (frontDoorCert == null)
+            {
+                string frontDoorCertSubject = "frontdoorclient-auth-df.dce.mp.microsoft.com";
+                frontDoorCert = GetCertificateBySubjectName(frontDoorCertSubject);
+            }
 
-            //if (cert != null && cert.IsPresent)
-            //{
-            //    try
-            //    {
-            //        return new X509Certificate2(cert.Certificate).Thumbprint == frontDoorCert.Thumbprint;
-            //    }
-            //    catch (Exception)
-            //    {
-            //        // Do your exception logging here
-            //    }
-            //}
+            if (cert != null && cert.IsPresent)
+            {
+                try
+                {
+                    return new X509Certificate2(cert.Certificate).Thumbprint == frontDoorCert.Thumbprint;
+                }
+                catch (Exception)
+                {
+                    // Do your exception logging here
+                }
+            }
 
             return true;
         }
@@ -58,7 +58,7 @@
             X509Store store = null;
             try
             {
-                store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
+                store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
                 store.Open(OpenFlags.ReadOnly);
                 X509Certificate2Collection myCertCollection = store.Certificates.Find(X509FindType.FindBySubjectName, subject, false);
 

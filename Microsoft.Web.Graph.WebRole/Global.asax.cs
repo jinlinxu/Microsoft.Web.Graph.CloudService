@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.Web.Portal.Common;
+using Microsoft.Web.Graph.WebRole.Filters;
 
 namespace Microsoft.Web.Graph.WebRole
 {
@@ -22,6 +23,9 @@ namespace Microsoft.Web.Graph.WebRole
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             CultureService.SetCurrentCulture(base.Context.Request);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
+
         }
     }
 }

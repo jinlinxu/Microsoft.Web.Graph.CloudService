@@ -15,7 +15,8 @@ namespace Microsoft.Web.Graph.WebRole
         /// </summary>
         public static bool ValidateFrontDoorCert
         {
-            get { return RoleEnvironment.IsAvailable; }
+            //get { return RoleEnvironment.IsAvailable; }
+            get { return true; }
         }
 
         /// <summary>
